@@ -11,7 +11,6 @@ int findSmallestFIndex(vector<Node*> list);
 Gato getTopParent(Node* n); 
 void printVector(vector<Node*> vector);
 bool existsInVector(vector<Node*> vector, Node* target);
-// int findIndex(vector<Node*> v, Node* target);
 
 int main()
 {
@@ -56,25 +55,19 @@ Gato createResponse(Gato g) {
 					// m->parent = current;
 					(*m).parent = current;
 					m->g = current->g + 1;
-					// TODO: Calculate heuristic
-					m->h = 0;
-					m->f = m->g + m->h;
+					m->f = m->g + m->heuristic();
 				}
 			} else if(existsInVector(closed, m)) {
 				if(current->g + 1 < m->g) {
 					(*m).parent = current;
 					m->g = current->g + 1;
-					// TODO: Calculate heuristic
-					m->h = 0;
-					m->f = m->g + m->h;
+					m->f = m->g + m->heuristic();
 					open.push_back(m);
 				}
 			} else {
 				(*m).parent = current;
 				m->g = current->g + 1;
-				// TODO: Calculate heuristic
-				m->h = 0;
-				m->f = m->g + m->h;
+				m->f = m->g + m->heuristic();
 				open.push_back(m);
 			}
 		}
@@ -85,8 +78,8 @@ Gato createResponse(Gato g) {
 }
 
 Gato getTopParent(Node* n) {
-	cout << "Calling top parent" << endl;
-	n->gato.drawBoard();
+	// cout << "Calling top parent" << endl;
+	// n->gato.drawBoard();
 	Node buffer = *n;
 	while(buffer.parent->parent != nullptr) 
 		buffer = *(buffer.parent);
@@ -114,10 +107,3 @@ bool existsInVector(vector<Node*> vector, Node* target) {
 			return true;
 	return false;
 }
-
-// int findIndex(vector<Node> v, Node target) {
-// 	for(auto i = v.begin(); i != v.end(); ++i)
-// 		if((*i).gato == target.gato)
-// 			return i - v.begin();
-// 	return -1;
-// }
