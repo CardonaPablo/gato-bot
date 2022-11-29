@@ -11,12 +11,30 @@ int findSmallestFIndex(vector<Node*> list);
 Gato getTopParent(Node* n); 
 void printVector(vector<Node*> vector);
 bool existsInVector(vector<Node*> vector, Node* target);
+int getPositionFromDifference(Gato a, Gato b);
 
 int main()
 {
+	// Recibir el gato
 	Gato g;
 	Gato nextState = createResponse(g);
+	g.drawBoard();
 	nextState.drawBoard();
+	// Determinar la diferencia entre el original y la respuesta
+	cout << getPositionFromDifference(g, nextState);
+}
+
+int getPositionFromDifference(Gato a, Gato b) {
+	int i, j, position = 0;
+	for (i = 0; i < 3; i++)
+		for (j = 0; j < 3; j++)
+			if(a.data[i][j] != b.data[i][j]) {
+				cout << "Differs in: " << i << ',' << j << endl;;
+				int position = 0;
+				position += 3*i;
+				position += j;
+			}
+	return position;
 }
 
 Gato createResponse(Gato g) {
